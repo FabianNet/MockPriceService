@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mock.Pricing.Service</name>
+    </assembly>
+    <members>
+        <member name="M:Mock.Pricing.Service.Controllers.PriceController.GetPrices">
+            <summary>
+            Sample interface for getting all prices
+            </summary>
+        </member>
+        <member name="F:Mock.Pricing.Service.Controllers.PriceController.Logger">
+            <summary>
+                Used to log messages.
+            </summary>
+        </member>
+        <member name="T:Mock.Pricing.Service.Utils.NetShellCmdLineTool">
+            <summary>
+                Encapsulates functionality of the command line tool 'netsh.exe' used for managing
+                URL access of applications, users and groups and TLS/SSL certificate bindings of applications.
+            </summary>
+        </member>
+        <member name="F:Mock.Pricing.Service.Utils.NetShellCmdLineTool.Logger">
+            <summary>
+                The <see cref="T:NLog.ILogger" /> used to log messages.
+            </summary>
+        </member>
+        <member name="M:Mock.Pricing.Service.Utils.NetShellCmdLineTool.RegisterHttpNamespace(Mock.Pricing.Service.Utils.Configuration)">
+            <summary>
+                Invokes NETSH to check and add the URL registration for this application.
+            </summary>
+        </member>
+        <member name="M:Mock.Pricing.Service.Utils.NetShellCmdLineTool.UnregisterHttpNamespace(Mock.Pricing.Service.Utils.Configuration)">
+            <summary>
+                Invokes NETSH to remove the URL registration for this application.
+            </summary>
+        </member>
+        <member name="T:Mock.Pricing.Service.Utils.Startup">
+            <summary>
+                Initializes the Web API host.
+            </summary>
+        </member>
+        <member name="M:Mock.Pricing.Service.Utils.Startup.Configuration(Owin.IAppBuilder)">
+            <summary>
+                Configurations the specified <see cref="T:Owin.IAppBuilder" /> (Web API service).
+                The <see cref="T:Mock.Pricing.Service.Utils.Startup" /> class is specified as parameter in the <see cref="M:Microsoft.Owin.Hosting.WebApp.Start``1(System.String)" />
+                method.
+            </summary>
+            <param name="appBuilder">The application builder.</param>
+        </member>
+        <member name="T:Mock.Pricing.Service.Utils.PricingService">
+            <summary>
+                Implements the Windows service hosting the WebAPI application.
+            </summary>
+        </member>
+        <member name="F:Mock.Pricing.Service.Utils.PricingService.Logger">
+            <summary>
+                Used to log messages.
+            </summary>
+        </member>
+        <member name="F:Mock.Pricing.Service.Utils.PricingService._config">
+            <summary>
+                The <see cref="T:Mock.Pricing.Service.Utils.Configuration" /> containing the application's settings.
+            </summary>
+        </member>
+        <member name="F:Mock.Pricing.Service.Utils.PricingService._syncServiceThreadAccess">
+            <summary>
+                Used to synchronize access to the service thread (e.g. stopping and starting).
+            </summary>
+        </member>
+        <member name="F:Mock.Pricing.Service.Utils.PricingService._syncServiceHostAccess">
+            <summary>
+                Used to synchronize access to the service host (e.g. when starting and shutting down).
+            </summary>
+        </member>
+        <member name="F:Mock.Pricing.Service.Utils.PricingService._serviceHost">
+            <summary>
+                The service host hosting the WebAPI container.
+            </summary>
+        </member>
+        <member name="F:Mock.Pricing.Service.Utils.PricingService._cancelTokenSrc">
+            <summary>
+                The <see cref="T:System.Threading.CancellationTokenSource" /> used to signal the service loop to cease service execution.
+            </summary>
+        </member>
+        <member name="F:Mock.Pricing.Service.Utils.PricingService._serviceCheckThread">
+            <summary>
+                The background <see cref="T:System.Threading.Thread" /> executing health checks to determine unhealthy component state and tries to
+                recover if unhealthy state detected.
+            </summary>
+        </member>
+        <member name="F:Mock.Pricing.Service.Utils.PricingService._reloadConfigurationTask">
+            <summary>
+                The <see cref="T:System.Threading.Tasks.Task" /> used to reload the application's <see cref="T:Mock.Pricing.Service.Utils.Configuration" /> from an external source.
+            </summary>
+        </member>
+        <member name="F:Mock.Pricing.Service.Utils.PricingService._reloadCalendarTask">
+            <summary>
+                The <see cref="T:System.Threading.Tasks.Task" /> used to reload the application's <see cref="T:Mock.Pricing.Service.Utils.Configuration" /> from an external source.
+            </summary>
+        </member>
+        <member name="M:Mock.Pricing.Service.Utils.PricingService.OnStart">
+            <summary>
+                Called when the service should start.
+            </summary>
+        </member>
+        <member name="M:Mock.Pricing.Service.Utils.PricingService.OnStop">
+            <summary>
+                Called when the service should stop.
+            </summary>
+        </member>
+        <member name="T:Mock.Pricing.Service.Utils.Configuration">
+            <summary>
+                Contains thew application's configuration settings.
+            </summary>
+        </member>
+        <member name="M:Mock.Pricing.Service.Utils.Configuration.#ctor(Mock.Pricing.Service.Utils.ExecutionEnvironment)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Mock.Pricing.Service.Utils.Configuration" /> class.
+            </summary>
+            <param name="executionEnvironment">
+                The <see cref="F:Mock.Pricing.Service.Utils.Configuration.ExecutionEnvironment" /> this application is
+                started with.
+            </param>
+            <exception cref="T:System.ArgumentException">Thrown, if <paramref name="executionEnvironment" /> is not supported.</exception>
+        </member>
+        <member name="F:Mock.Pricing.Service.Utils.Configuration.ExecutionEnvironment">
+            <summary>
+                The <see cref="!:Components.Base.Utils.ExecutionEnvironment" /> in which this service will be executed.
+                Depending on the value of this property some values will vary (e.g. <see cref="!:MadBaseDbConnectionString" />).
+            </summary>
+        </member>
+        <member name="P:Mock.Pricing.Service.Utils.Configuration.ServiceLoopWaitTime">
+            <summary>
+                The time span to wait before the next service loop call will be executed.
+            </summary>
+        </member>
+        <member name="P:Mock.Pricing.Service.Utils.Configuration.ServiceTimeOutBeforeForcefulServiceStop">
+            <summary>
+                The time span to wait before the service is forcefully shut down (so called grace period).
+            </summary>
+        </member>
+        <member name="P:Mock.Pricing.Service.Utils.Configuration.ServiceAbortWaitTime">
+            <summary>
+                The time span to wait before the forceful service thread abortion is considered to be timed out..
+            </summary>
+        </member>
+        <member name="P:Mock.Pricing.Service.Utils.Configuration.ServiceName">
+            <summary>
+                The unique name used to identify the service in commands like sc.exe or in Service Control Manager.
+                This name must not contain any white spaces.
+            </summary>
+        </member>
+        <member name="P:Mock.Pricing.Service.Utils.Configuration.ServiceDisplayName">
+            <summary>
+                A unique and human readable name being displayed in the Service Control Manager to identify this service.
+                This name may contain white spaces.
+            </summary>
+        </member>
+        <member name="P:Mock.Pricing.Service.Utils.Configuration.ServiceUserPasswordEncrypted">
+            <summary>
+                The encrypted password of the service user account under which the service will be running.
+            </summary>
+        </member>
+        <member name="P:Mock.Pricing.Service.Utils.Configuration.ServiceUserName">
+            <summary>
+                The fully qualified user name (e.g. 'GROUP\R555555') under which this service will be executed.
+            </summary>
+        </member>
+        <member name="P:Mock.Pricing.Service.Utils.Configuration.ServiceHttpPort">
+            <summary>
+                The port used by this service to listen for incoming HTTP connections.
+            </summary>
+        </member>
+        <member name="P:Mock.Pricing.Service.Utils.Configuration.ServiceHttpsPort">
+            <summary>
+                The port used by this service to listen for incoming HTTPS connections.
+            </summary>
+        </member>
+        <member name="P:Mock.Pricing.Service.Utils.Configuration.ServiceBaseUrl">
+            <summary>
+                The base URL of this service.
+            </summary>
+        </member>
+        <member name="P:Mock.Pricing.Service.Utils.Configuration.LoggingLevel">
+            <summary>
+                The <see cref="T:NLog.LogLevel" /> used to log messages.
+            </summary>
+        </member>
+        <member name="T:Mock.Pricing.Service.Program">
+            <summary>
+                Represents the application which can be executes as console application or as service.
+            </summary>
+        </member>
+    </members>
+</doc>
